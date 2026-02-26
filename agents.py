@@ -1,19 +1,21 @@
 import os
-from google import genai
+import google.generativeai as genai
 
-api_key = os.environ.get("GEMINI_API_KEY")
+api_key = os.environ.get("GOOGLE_API_KEY")
 
 if not api_key:
-    raise ValueError("GEMINI_API_KEY not found. Restart VS Code.")
+    raise ValueError("GOOGLE_API_KEY not found in Streamlit Secrets.")
 
-client = genai.Client(api_key=api_key)
+genai.configure(api_key=api_key)
+
+model = genai.GenerativeModel("gemini-2.5-flash")
 
 def generate_insights(summary):
-    response = client.models.generate_content(
-        model="gemini-2.5-flash",
-        contents=f"""
+    response = model.generate_content(
+        f"""
         You are a senior data analyst.
         Analyze the following dataset summary and provide:
+
         - Key insights
         - Patterns
         - Business recommendations
