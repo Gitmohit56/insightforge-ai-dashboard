@@ -1,1 +1,8 @@
+streamlit
+pandas
+plotly
+reportlab
+openai
+google-generativeai
+python-dotenv
 
